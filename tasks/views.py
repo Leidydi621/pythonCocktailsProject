@@ -1,22 +1,14 @@
-from django.shortcuts import render
-import requests
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.shortcuts import render, redirect
+from .models import Cocktail, Category
+
 
 # Create your views here.
 
+def list_cocktail(request):
+    return render(request,'list_cocktails.html')
 
+def letter_name(request):
+    letter = request.POST
 
-class ExternalAPI(APIView):
-    def getAllCocktail(self, request):
-        # Hacer la solicitud GET a la API externa
-        response = requests.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=')
-
-        # Obtener los datos de la respuesta
-        data = response.json()
-
-        # Procesar los datos como desees
-        # ...
-
-        return Response(data)
-
+    letter= request.POST['letter'].lower()
+    return redirect('/cocktails/')
