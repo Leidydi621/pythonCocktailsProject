@@ -7,8 +7,9 @@ class Cocktail(models.Model):
     glass = models.CharField(max_length=100)
     ingredients = models.CharField(max_length=100)
     img = models.CharField(max_length=300)
-   
+    categoryName = models.CharField(max_length=100)
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
+   
     

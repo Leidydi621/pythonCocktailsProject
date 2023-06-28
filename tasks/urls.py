@@ -1,8 +1,11 @@
-from django.urls import path
-from .views import list_cocktail, letter_name
+from django.urls import path, include
+from rest_framework import routers
+from tasks import views
+
+router = routers.DefaultRouter()
+router.register(r'cocktails', views.TaskView, 'cocktails')
 
 urlpatterns = [
-    path('', list_cocktail),
-    path('letter/', letter_name),
+    path('api/v1/', include(router.urls)),
 ]
 
