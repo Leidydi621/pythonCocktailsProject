@@ -1,26 +1,39 @@
 from django.shortcuts import render
-import requests
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from .serializer import CocktailSerializer
 from .models import Cocktail
+from .services import get_username
+
+import requests
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 # Create your views here.
 
-class TaskView(viewsets.ModelViewSet):
-    
+class TaskView(viewsets.ModelViewSet):    
+    apiInfo = get_username()
+    data = Cocktail(
+        id = apiInfo['id'], 
+        name = apiInfo['name'], 
+        img = apiInfo['img'], 
+        categoryName = apiInfo['categoryName'],
+        glass = apiInfo['glass'],
+        instructions=apiInfo['instructions'],
+        ingredients=apiInfo['ingredients'],
+        )
+    data.save()
 
     serializer_class = CocktailSerializer
     queryset = Cocktail.objects.all()
 
+  
+
+
+    
 
 # class MyViews(APIView):
         
-    # def get(self, request):
-    #    response = request.get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-    #    cockData = response.json()
 
     #    cockData2 = {
     #      'id': str(cockData['idDrink']),
